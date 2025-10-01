@@ -1,0 +1,57 @@
+# top-level workspace file
+cat > Cargo.toml <<'EOF'
+[workspace]
+members = ["programs/fee_router"]
+resolver = "2"
+EOF
+
+# program specific Cargo
+mkdir -p programs/fee_router/src/instructions
+cat > programs/fee_router/Cargo.toml <<'EOF'
+[package]
+name         = "fee_router"
+version      = "0.1.0"
+edition      = "2021"
+
+[dependencies]
+anchor-lang = "0.29.0"
+anchor-spl  = "0.29.0"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+EOF
+
+# minimal Rust files (stubs – we’ll paste real code next)
+cat > programs/fee_router/src/lib.rs <<'EOF'
+#![deny(unsafe_code)]
+pub use anchor_lang::prelude::*;
+pub mod contexts;       // accounts
+pub mod state;          // PDAs
+pub mod instructions;   // handlers
+pub mod errors;
+
+use instructions::*;
+
+declare_id!("FeeRouTer11111111111111111111111111111111");
+
+#[program]
+pub mod fee_router {
+    use super::*;
+    pub fn init_honorary_position(ctx: Context<InitHonoraryPosition>) -> Result<()> {
+        instructions::init_honorary_position::handler(ctx)
+    }
+    pub fn crank_page(ctx: Context<CrankPage>, page_len: u32) -> Result<()> {
+        instructions::crank::handler(ctx, page_len)
+    }
+}
+EOF
+
+touch programs/fee_router/src/{contexts.rs,state.rs,errors.rs}
+touch programs/fee_router/src/instructions/{init_honorary_position.rs,crank.rs}
+
+# tests folder
+mkdir tests
+touch tests/{fee_router_bankrun.rs,utils.rs}
+
+# README
+touch README.md
