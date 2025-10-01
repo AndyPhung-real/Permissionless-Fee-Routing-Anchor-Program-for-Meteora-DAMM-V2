@@ -1,1 +1,13 @@
+# BEGIN programs/fee_router/Cargo.toml
+[package]
+name    = "fee_router"
+version = "0.1.0"
+edition = "2021"
 
+[dependencies]
+anchor-lang = "0.29.0"
+anchor-spl  = "0.29.0"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+# END programs/fee_router/Cargo.toml
