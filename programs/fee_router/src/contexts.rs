@@ -72,5 +72,7 @@ pub struct CrankPage<'info> {
     /// CHECK:
     #[account(mut)]
     pub remaining_accounts: Vec<AccountInfo<'info>>,
+    /* helper re-export for crank.rs */
+pub use crate::state::unix_day;
 }
 // END programs/fee_router/src/contexts.rs
