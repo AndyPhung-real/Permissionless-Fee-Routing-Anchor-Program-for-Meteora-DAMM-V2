@@ -14,3 +14,9 @@ cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
 
 # run unit + integration tests on a local validator
 anchor test
+Repository layout
+Cargo.toml                # workspace root
+programs/fee_router/      # on-chain program
+tests/                    # integration tests
+All PDAs, account tables, error codes, and pagination semantics are documented in the design notes (see /programs/fee_router/src/*.rs).
+
