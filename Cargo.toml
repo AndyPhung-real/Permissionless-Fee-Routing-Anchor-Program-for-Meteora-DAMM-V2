@@ -1,5 +1,9 @@
-# BEGIN Cargo.toml
+# BEGIN Cargo.toml  (root of repo)
 [workspace]
-members  = ["programs/fee_router"]
 resolver = "2"
+members  = [
+    "programs/fee_router",
+    "programs/mock_cp_amm",
+    "programs/mock_streamflow",
+]
 # END Cargo.toml
