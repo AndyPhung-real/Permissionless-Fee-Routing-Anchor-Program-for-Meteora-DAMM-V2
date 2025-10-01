@@ -1,3 +1,16 @@
-• Add star-fee-router to Cargo.toml of Star monorepo.
-• Wire cp_amm_program_id, streamflow_program_id, pool_pubkey, quote_mint into the front-end wizard.
-• Run anchor test -- --nocapture – all green.
+<!-- BEGIN README.md -->
+# Star – Honorary LP Fee Router (Bounty Submission)
+
+This repo contains a minimal, Anchor-compatible Solana program that:
+
+* mints a quote-only LP position in a DAMM v2 pool, and  
+* once per day “cranks” the claimed quote fees, streaming them to investors pro-rata and forwarding the remainder to the creator wallet.
+
+## Build / Test locally
+
+```bash
+# Install Anchor CLI if you haven't already
+cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
+
+# run unit + integration tests on a local validator
+anchor test
