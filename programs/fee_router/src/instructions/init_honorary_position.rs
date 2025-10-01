@@ -1,15 +1,29 @@
 // BEGIN programs/fee_router/src/instructions/init_honorary_position.rs
 use anchor_lang::prelude::*;
-use crate::{contexts::*, errors::RouterError};
+use crate::contexts::*;
+use crate::errors::RouterError;
 
 pub fn handler(ctx: Context<InitHonoraryPosition>) -> Result<()> {
-    // NOTE: this is a stub so the repo compiles.
-    // In the full implementation you would:
-    //  1. Detect quote mint from the pool.
-    //  2. Calculate tick range that guarantees quote-only fees.
-    //  3. CPI into cp-amm create_position (owner = investor_fee_pos_owner_pda).
-    //  4. Emit an event.
-    msg!("init_honorary_position: stub (replace with real logic)");
+    // CPI into mock_cp_amm to create a fresh position owned by our PDA.
+    let cpi_program = ctx.accounts.cp_amm_program.to_account_info();
+    let cpi_accounts = mock_cp_amm::accounts::CreatePosition {
+        pool:      ctx.accounts.cp_amm_pool.to_account_info(),
+        position:  ctx.accounts.new_position.to_account_info(),
+        owner:     ctx.accounts.investor_fee_pos_owner_pda.to_account_info(),
+        payer:     ctx.accounts.payer.to_account_info(),
+        system_program: ctx.accounts.system_program.to_account_info(),
+    };
+    let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
+    mock_cp_amm::create_position(cpi_ctx)?;
+
+    emit!(HonoraryPositionInitialized {
+        position: ctx.accounts.new_position.key(),
+    });
     Ok(())
+}
+
+#[event]
+pub struct HonoraryPositionInitialized {
+    pub position: Pubkey,
 }
 // END programs/fee_router/src/instructions/init_honorary_position.rs
