@@ -1,0 +1,11 @@
+# BEGIN Anchor.toml
+[features]
+seeds = true
+
+[programs.localnet]
+fee_router      = "FeeRouTer11111111111111111111111111111111"
+mock_cp_amm     = "MockCpAmm1111111111111111111111111111111"
+mock_streamflow = "MockStrm11111111111111111111111111111111"
+
+# All three programs are built from source, so no clone lines are needed.
+# END Anchor.toml
