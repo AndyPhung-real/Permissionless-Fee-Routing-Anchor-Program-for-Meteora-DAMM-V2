@@ -1,1 +1,5 @@
-
+# BEGIN Cargo.toml
+[workspace]
+members  = ["programs/fee_router"]
+resolver = "2"
+# END Cargo.toml
