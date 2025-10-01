@@ -19,4 +19,5 @@ Cargo.toml                # workspace root
 programs/fee_router/      # on-chain program
 tests/                    # integration tests
 All PDAs, account tables, error codes, and pagination semantics are documented in the design notes (see /programs/fee_router/src/*.rs).
+<!-- END README.md -->
 
